@@ -2,10 +2,10 @@ const w : number = window.innerWidth
 const h : number = window.innerHeight
 const scGap : number = 0.02
 const strokeFactor : number = 90
-const rFactor : number = 5
+const rFactor : number = 15
 const foreColor : string = "#673AB7"
 const backColor : string = "#BDBDBD"
-const delay : number = 30
+const delay : number = 45
 
 class Stage {
 
@@ -78,14 +78,19 @@ class DrawingUtil {
 
     static drawRodCaptureBall(context : CanvasRenderingContext2D, scale : number) {
         const sf : number = ScaleUtil.sinify(scale)
-        const y : number = (h / 2 - h / 10)
-        const startY : number = h / 10
+        const endY : number = 0.8 * h
+        const startY : number = h / 30
+        const y : number = (endY - startY)
         const sc : number = ScaleUtil.divideScale(scale, 1, 2)
         const scc : number = ScaleUtil.cosify(sc)
         const r : number = Math.min(w, h) / rFactor
+        context.lineCap = 'round'
+        context.strokeStyle = foreColor
+        context.fillStyle = foreColor
+        context.lineWidth = Math.min(w, h) / strokeFactor
         DrawingUtil.drawLine(context, w / 10, startY, w / 2, startY)
         DrawingUtil.drawLine(context, w / 2, startY, w / 2, startY + y * sf)
-        DrawingUtil.drawCircle(context, w / 2, h / 2 - y * scc, r)
+        DrawingUtil.drawCircle(context, w / 2, endY - y * scc, r)
     }
 }
 
