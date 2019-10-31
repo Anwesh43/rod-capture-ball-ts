@@ -145,3 +145,25 @@ class RodCaptureBall {
         this.state.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rcb : RodCaptureBall = new RodCaptureBall()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rcb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rcb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rcb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
