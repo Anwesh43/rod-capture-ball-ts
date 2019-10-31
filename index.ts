@@ -113,7 +113,7 @@ class Animator {
 
     animated : boolean = false
     interval : number
-    
+
     start(cb : Function) {
         if (!this.animated) {
             this.animated = true
@@ -126,5 +126,22 @@ class Animator {
             this.animated = false
             clearInterval(this.interval)
         }
+    }
+}
+
+class RodCaptureBall {
+
+    state : State = new State()
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawRodCaptureBall(context, this.state.scale)
+    }
+
+    update(cb : Function) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : Function) {
+        this.state.startUpdating(cb)
     }
 }
